@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<script>
+  function init(){
+    let niceResult;
+    if(![[${result.isError}]]) {
+      niceResult = {
+        MOBILE_NO: "[[${result.MOBILE_NO}]]",
+        MOBILE_CO: "[[${result.MOBILE_CO}]]",
+        CI: "[[${result.CI}]]",
+        GENDER: "[[${result.GENDER}]]",
+        BIRTHDATE: "[[${result.BIRTHDATE}]]",
+        NAME: "[[${result.NAME}]]",
+        ERROR: false
+      };
+    } else {
+      niceResult = {
+        ERROR : true,
+        MESSAGE: "[[${result.errorMessage}]]"
+      };
+    }
+    try {
+        window.ReactNativeWebView.postMessage(JSON.stringify(niceResult));
+    }catch(err){
+      alert("문제가 발생하였습니다");
+    }
+
+ }
+
+</script>
+<body onload="init()">
+</body>
+</html>

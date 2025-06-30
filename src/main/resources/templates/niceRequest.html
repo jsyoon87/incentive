@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<script>
+  function init(){
+    const isError = [[${error}]];
+    if(!isError){
+      document.form_chk.submit();
+    } else {
+      try {
+        window.opener.postMessage({ERROR: true, MESSAGE: "[[${message}]]" }, '*')
+      }catch(err){
+        console.log('err', err);
+      }
+      window.close();
+    }
+  }
+
+</script>
+<body onload="init()">
+<form name="form_chk" method="post" target="_self"
+      action="https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb">
+  <input type="hidden" name="m" value="checkplusService">            <!-- 필수 데이타로, 누락하시면 안됩니다. -->
+  <input type="hidden" name="EncodeData" th:value="${encData}">
+  <input type="hidden" name="message" th:value="${message}">
+</form>
+</body>
+</html>
+
+
+
